@@ -1,0 +1,45 @@
+#Table creation
+create table olympix_data
+(
+athlete string,
+age int,
+country string,
+year string,
+closing_Date string,
+sport string,
+gold_Medals int,
+silver_Medals int,
+bronze_Medals int,
+total_Medals int
+)
+row format delimited
+FIELDS TERMINATED BY '\t';
+
+
+#Loading data
+LOAD DATA LOCAL INPATH '/home/aksbarik.oraunx_gmail/hive/olympix_data.csv'
+INTO table olympix_data;
+
+#1. Write a Hive program to find the number of medals won by each country in swimming.
+ 
+  Select country,sum(total_Medals) 
+   From olympix_data 
+   Where sport='Swimming'
+   Group by country;
+
+#2 Write a Hive program to find the number of medals that India won year wise.
+
+Select year,sum(total_Medals)
+From olympix_data Where country='India'
+group by year;
+
+#3 Write a Hive Program to find the total number of medals each country won.
+
+ Select country,sum(total_Medals) 
+   From olympix_data 
+   Group by country;
+#Write a Hive program to find the number of gold medals each country won.
+
+ Select country,sum(gold_Medals) 
+   From olympix_data 
+   Group by country;
